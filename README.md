@@ -1,7 +1,9 @@
 ## Hello, my name is Kurt and currently I am a Sophomore student.
 
-This is m first ever Git project.
-
+This is my first ever Git project.
 I am making a weather app that is utilizing an openweather api.
 As of August 12, 2025 this is a starting project and I am learning as I go.
 There is still so many things that I don't know about programming and creating something but I hope it will be fun.
+
+Right now, I am learning how to use Git and APIs, hence the reason why i'm trying to create this weather app.
+As I think it uses the things I need to learn.
