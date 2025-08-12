@@ -1,63 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;700&display=swap');
-ion-icon{
-    display: block;
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;700&display=swap");
+ion-icon {
+  display: block;
 }
 
 #header {
-    background-color: #ffffff; /* White */
-    color: #333333;            /* Dark gray text */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e0e0e0; /* Light gray border */
+  background-color: #ffffff; /* White */
+  color: #333333; /* Dark gray text */
+  padding: 5px 10px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0; /* Light gray border */
 }
 
 body {
-    background-color: #f7f7f7; /* Light gray background */
-    color: #333333;
-    font-family: 'Mona Sans', sans-serif;
+  background-color: #e0e0e0; /* Light gray background */
+  color: #333333;
+  font-family: "Mona Sans", sans-serif;
+  margin: 0;
 }
 
-#weather-container, #forecast-container {
-    background-color: #ffffff;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    max-width: 800px;
+.container {
+  background-color: #ffffff;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
 }
 
 #search-form input[type="search"] {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 20px 0 0 20px;
-    font-size: 16px;
-    outline: none;
-    background: #f7f7f7;
-    color: #333;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    transition: box-shadow 0.2s;
-    font-family: 'Mona Sans', sans-serif;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  font-size: 16px;
+  outline: none;
+  background: #f7f7f7;
+  color: #333;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+  font-family: "Mona Sans", sans-serif;
 }
 
 #search-form input[type="search"]:focus {
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 #search-form button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 0 20px 20px 0;
-    background-color: #e0e0e0;
-    color: #333;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: 'Mona Sans', sans-serif;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: "Mona Sans", sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 #search-form button:hover {
-    background-color: #cccccc;
+  background-color: #cccccc;
 }
