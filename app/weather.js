@@ -4,7 +4,7 @@ const currentHour = currentTime.getHours();
 
 let headerContent;
 if (currentHour < 12) {
-  headerCountent = "Good Morning!";
+  headerContent = "Good Morning!";
 } else if (currentHour < 18) {
   headerContent = "Good Afternoon!";
 } else {
@@ -21,64 +21,53 @@ const options = {
 };
 dateElement.innerHTML = currentTime.toLocaleDateString(undefined, options);
 
-// Weather fetching functionality
-// This code fetches the weather data for a given city using Open Meteo API
-document
-  .getElementById("search-form")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const city = document.getElementById("query").value;
-    const geocodeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
-      city
-    )}&count=1`;
+const apiKey = "9199ef7f8927f6f17fc640f7d1c70570";
 
-    try {
-      const geoRes = await fetch(geocodeUrl);
-      const geoData = await geoRes.json();
-      if (!geoData.results || geoData.results.length === 0) {
-        document.getElementById("temperature").textContent = "City not found.";
-        return;
-      }
-      const { latitude, longitude, name, country } = geoData.results[0];
-      const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-      const weatherRes = await fetch(weatherUrl);
-      const weatherData = await weatherRes.json();
-      const temp = weatherData.current_weather.temperature;
-      document.getElementById(
-        "temperature"
-      ).textContent = `${name}, ${country}: ${temp}°C`;
-    } catch {
-      document.getElementById("temperature").textContent =
-        "Error fetching weather data.";
-    }
-  });
-
-// ...existing code...
-
-// Show default weather for Trece Martires City on page load
-window.addEventListener("DOMContentLoaded", async function () {
-  const city = "Trece Martires City";
-  const geocodeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
+async function fetchWeatherData(city = "Trece Martires") {
+  const apiURL = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${encodeURIComponent(
     city
-  )}&count=1`;
-
+  )}&appid=${apiKey}`;
   try {
-    const geoRes = await fetch(geocodeUrl);
-    const geoData = await geoRes.json();
-    if (!geoData.results || geoData.results.length === 0) {
-      document.getElementById("temperature").textContent = "City not found.";
-      return;
+    const response = await fetch(apiURL);
+    if (!response.ok) throw new Error("City not found");
+    const data = await response.json();
+    document.querySelector(".city-name").innerHTML = data.name;
+    document.querySelector(".temperature").innerHTML =
+      Math.round(data.main.temp) + "°C";
+    document.querySelector(".Humidity").innerHTML = data.main.humidity + "%";
+    document.querySelector(".Wind").innerHTML = data.wind.speed + " km/h";
+
+    const weatherIcon = document.querySelector(".weather-icon");
+    if (data.weather[0].main == "Clouds") {
+      weatherIcon.src = "images/clouds.png";
+    } else if (data.weather[0].main == "Rain") {
+      weatherIcon.src = "images/rain.png";
+    } else if (data.weather[0].main == "Clear") {
+      weatherIcon.src = "images/clear.png";
+    } else if (data.weather[0].main == "Drizzle") {
+      weatherIcon.src = "images/drizzle.png";
+    } else if (data.weather[0].main == "Snow") {
+      weatherIcon.src = "images/snow.png";
     }
-    const { latitude, longitude, name, country } = geoData.results[0];
-    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-    const weatherRes = await fetch(weatherUrl);
-    const weatherData = await weatherRes.json();
-    const temp = weatherData.current_weather.temperature;
-    document.getElementById(
-      "temperature"
-    ).textContent = `${name}, ${country}: ${temp}°C`;
-  } catch {
-    document.getElementById("temperature").textContent =
-      "Error fetching weather data.";
+  } catch (error) {
+    const weatherIcon = document.querySelector(".weather-icon");
+    weatherIcon.src = "images/error.png"; // Fallback icon for errors
+    document.querySelector(".city-name").innerHTML = "City not found";
+    document.querySelector(".temperature").innerHTML = "-";
+    document.querySelector(".Humidity").innerHTML = "-";
+    document.querySelector(".Wind").innerHTML = "-";
+  }
+}
+
+// Event listener for the search form
+document.getElementById("search-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const searchInput = document.getElementById("query");
+  const city = searchInput.value.trim();
+  if (city) {
+    fetchWeatherData(city);
+    searchInput.value = "";
   }
 });
+// Fetch default city on load
+fetchWeatherData();

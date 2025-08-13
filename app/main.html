@@ -8,28 +8,39 @@
 
     <title>Windy</title>
     <link rel="icon" href=".\images\icon.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="weather_style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-    
-    <div id="header">
+    <div class="header">
         <h1 id="dynamicHeader"></h1>
         <h2 id="dynamic-date"></h2>
-        <form id="search-form" action="/search" method="get" role="search" autocomplete="off">
+        <form class="search-form" id="search-form" action="/search" method="get" role="search" autocomplete="off">
             <input type="search" id="query" name="q" placeholder="Search City" aria-label="Search through site content">
-            <button type="submit">Search</button>
+            <button type="submit" class="submit">Search</button>
         </form>
     </div>
-    <div class="container">
-        <div id="weather-container">
-            <h2 id="temperature"></h2>
-
+    <div class="card">
+        <img src=".\images\clear.png" alt="Weather Icon" class="weather-icon">
+        <h1 class="city-name">Manila</h1>
+        <h2 class="temperature">0°c</h2>
+        <div class="weather-description">
+            <div class="col">
+                <img src="./images/humidity.png" alt="Humidity Icon" class="icon">
+                <div>
+                    <p class="Humidity">0%</p>
+                    <p class="humidity-value">Humidity</p>
+                </div>
+            </div>
+            <div class="col">
+                <img src="./images/wind.png" alt="Wind Icon" class="icon">
+                <div>
+                    <p class="Wind">0 km/h</p>
+                    <p class="wind-speed">Wind Speed</p>
+                </div>
+            </div>
         </div>
 
-        <div id="forecast-container">
-            <p>hotdog</p>
-        </div>
     </div>        
 
     <script src="weather.js"></script>
