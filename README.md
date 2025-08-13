@@ -7,3 +7,7 @@ There is still so many things that I don't know about programming and creating s
 
 Right now, I am learning how to use Git and APIs, hence the reason why i'm trying to create this weather app.
 As I think it uses the things I need to learn.
+
+This program is created using basic HTML, CSS, and Javascript
+This utilizes openweathermap api which is used to deliver temperature, humidity, and wind speed.
+There Dynamic parts of this project that is achieve through Javascript.
