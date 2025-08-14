@@ -103,6 +103,8 @@ body {
 .Humidity,
 .Wind,
 .wind-speed,
-.humidity-value {
+.humidity-value,
+.UV-Index-value,
+.UV-Index {
   margin: 0;
 }

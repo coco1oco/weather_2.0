@@ -35,7 +35,11 @@ async function fetchWeatherData(city = "Trece Martires") {
     document.querySelector(".temperature").innerHTML =
       Math.round(data.main.temp) + "°C";
     document.querySelector(".Humidity").innerHTML = data.main.humidity + "%";
-    document.querySelector(".Wind").innerHTML = data.wind.speed + " km/h";
+    const windSpeed = Math.round(data.wind.speed * 3.6); // Convert m/s to km/h
+    document.querySelector(".Wind").innerHTML = windSpeed + " km/h";
+    const uvindex = data.main.uvi;
+    document.querySelector(".UV-Index-value").innerHTML = uvindex;
+    console.log(data);
 
     const weatherIcon = document.querySelector(".weather-icon");
     if (data.weather[0].main == "Clouds") {
@@ -48,6 +52,8 @@ async function fetchWeatherData(city = "Trece Martires") {
       weatherIcon.src = "images/drizzle.png";
     } else if (data.weather[0].main == "Snow") {
       weatherIcon.src = "images/snow.png";
+    } else if (data.weather[0].main == "Thunderstorm") {
+      weatherIcon.src = "images/thunderstorm.png";
     }
   } catch (error) {
     const weatherIcon = document.querySelector(".weather-icon");
