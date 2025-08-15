@@ -199,3 +199,19 @@ body {
     max-width: 95vw;
   }
 }
+
+.footerBottom {
+  margin: 20px;
+  text-align: center;
+}
+
+.footerBottom p {
+  color: rgb(16, 26, 26);
+}
+
+.designer {
+  opacity: 0.7;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0px 5px;
+}
