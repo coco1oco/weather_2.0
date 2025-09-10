@@ -115,12 +115,29 @@ async function fetchForecast(city = "Trece Martires") {
       });
 
       // Pick midday entry for icon & main temp (closest to 12:00)
-      let middayEntry = entries.reduce((prev, curr) => {
-        return Math.abs(new Date(curr.dt_txt).getHours() - 12) <
-          Math.abs(new Date(prev.dt_txt).getHours() - 12)
-          ? curr
-          : prev;
+      // Find the entry with the highest temp for icon/description
+      let highEntry = entries.reduce((prev, curr) =>
+        curr.main.temp_max > prev.main.temp_max ? curr : prev
+      );
+      // Find the entry with the lowest temp for icon/description
+      let lowEntry = entries.reduce((prev, curr) =>
+        curr.main.temp_min < prev.main.temp_min ? curr : prev
+      );
+      // For the day's main weather, pick the most frequent weather condition
+      const weatherCounts = {};
+      entries.forEach((entry) => {
+        const main = entry.weather[0].main;
+        weatherCounts[main] = (weatherCounts[main] || 0) + 1;
       });
+      const mostFrequentWeather = Object.entries(weatherCounts).sort(
+        (a, b) => b[1] - a[1]
+      )[0][0];
+      // Use the first entry with the most frequent weather for icon
+      const mainEntry =
+        entries.find(
+          (entry) => entry.weather[0].main === mostFrequentWeather
+        ) || entries[0];
+      let middayEntry = mainEntry;
 
       const dateObj = new Date(dateStr);
       const fullDate = dateObj.toLocaleDateString(undefined, {

@@ -11,5 +11,3 @@ As I think it uses the things I need to learn.
 This program is created using basic HTML, CSS, and Javascript
 This utilizes openweathermap api which is used to deliver temperature, humidity, and wind speed.
 There Dynamic parts of this project that is achieve through Javascript.
-
-test
