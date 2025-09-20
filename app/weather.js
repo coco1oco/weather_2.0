@@ -58,7 +58,7 @@ async function fetchWeatherData(city = "Trece Martires") {
     ).innerHTML = `<p>Unable to load forecast</p>`;
   }
 }
-
+//hHHSadA
 // Map weather conditions to local icons
 function getLocalIcon(condition) {
   switch (condition) {
@@ -132,7 +132,7 @@ async function fetchForecast(city = "Trece Martires") {
       const mostFrequentWeather = Object.entries(weatherCounts).sort(
         (a, b) => b[1] - a[1]
       )[0][0];
-      // Use the first entry with the most frequent weather for icon
+      // Use the first entry with the most frequent weather for ico/n
       const mainEntry =
         entries.find(
           (entry) => entry.weather[0].main === mostFrequentWeather
