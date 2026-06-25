@@ -1,3 +1,5 @@
+import { Sun, Moon } from "lucide-react";
+
 export default function Footer({ lastUpdated, lat, lon, theme, onToggleTheme }) {
   if (!lastUpdated) return null;
 
@@ -16,8 +18,16 @@ export default function Footer({ lastUpdated, lat, lon, theme, onToggleTheme }) 
       <div>
         Updated {time}{coords && ` · ${coords}`}
       </div>
-      <button className="theme-toggle" onClick={onToggleTheme}>
-        [ {theme === 'light' ? 'Dark Mode' : 'Light Mode'} ]
+      <button 
+        className="theme-toggle" 
+        onClick={onToggleTheme}
+        aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+      >
+        {theme === 'light' ? (
+          <Moon size={16} strokeWidth={1.5} />
+        ) : (
+          <Sun size={16} strokeWidth={1.5} />
+        )}
       </button>
     </footer>
   );
