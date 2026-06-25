@@ -17,6 +17,9 @@ export default function Footer({ lastUpdated, lat, lon, theme, onToggleTheme }) 
     <footer className="footer">
       <div>
         Updated {time}{coords && ` · ${coords}`}
+        <div style={{ marginTop: '8px' }}>
+          &copy; 2026 <a href="https://kurtmichaelmirafelix.dev" target="_blank" rel="noopener noreferrer" className="footer-link">coco1oco</a>
+        </div>
       </div>
       <button 
         className="theme-toggle" 
