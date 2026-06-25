@@ -1,9 +1,15 @@
-export default function DataRow({ humidity, windSpeed, uvIndex }) {
+export default function DataRow({ humidity, windSpeed, uvIndex, unit }) {
+  const isImperial = unit === "F";
+  const displayWindSpeed = isImperial
+    ? windSpeed !== null ? Math.round(windSpeed * 0.621371) : null
+    : windSpeed !== null ? Math.round(windSpeed) : null;
+  const windUnit = isImperial ? "mph" : "km/h";
+
   const items = [
     { label: "Humidity", value: humidity !== null ? `${humidity}%` : "—" },
     {
       label: "Wind",
-      value: windSpeed !== null ? `${Math.round(windSpeed)} km/h` : "—",
+      value: displayWindSpeed !== null ? `${displayWindSpeed} ${windUnit}` : "—",
     },
     {
       label: "UV Index",

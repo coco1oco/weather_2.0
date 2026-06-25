@@ -136,6 +136,7 @@ export default function App() {
               humidity={current.humidity}
               windSpeed={current.windSpeed}
               uvIndex={current.uvIndex}
+              unit={unit}
             />
           )}
 
