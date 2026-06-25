@@ -2,14 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-async function fetchRainViewerTimestamp() {
+async function fetchRainViewerData() {
   const resp = await fetch("https://api.rainviewer.com/public/weather-maps.json");
   if (!resp.ok) throw new Error("RainViewer unavailable");
   const data = await resp.json();
   // Get the most recent radar frame
   const frames = data.radar?.past;
   if (!frames || frames.length === 0) throw new Error("No radar frames");
-  return frames[frames.length - 1].time;
+  const latestFrame = frames[frames.length - 1];
+  return {
+    time: latestFrame.time,
+    path: latestFrame.path,
+    host: data.host,
+  };
 }
 
 export default function PrecipitationMap({ lat, lon }) {
@@ -57,10 +62,10 @@ export default function PrecipitationMap({ lat, lon }) {
 
       // Load RainViewer radar
       try {
-        const timestamp = await fetchRainViewerTimestamp();
+        const radarData = await fetchRainViewerData();
         if (!mounted || !mapInstanceRef.current) return;
 
-        const radarUrl = `https://tilecache.rainviewer.com/v2/radar/${timestamp}/256/{z}/{x}/{y}/2/1_1.png`;
+        const radarUrl = `${radarData.host}${radarData.path}/256/{z}/{x}/{y}/2/1_1.png`;
         const radarLayer = L.tileLayer(radarUrl, {
           opacity: 0.6,
           maxZoom: 15,
@@ -68,7 +73,7 @@ export default function PrecipitationMap({ lat, lon }) {
         radarLayer.addTo(map);
         radarLayerRef.current = radarLayer;
 
-        const date = new Date(timestamp * 1000);
+        const date = new Date(radarData.time * 1000);
         setRadarUpdatedAt(
           date.toLocaleTimeString(undefined, {
             hour: "numeric",
@@ -86,13 +91,13 @@ export default function PrecipitationMap({ lat, lon }) {
     const interval = setInterval(async () => {
       if (!mapInstanceRef.current) return;
       try {
-        const timestamp = await fetchRainViewerTimestamp();
+        const radarData = await fetchRainViewerData();
         if (!mounted || !mapInstanceRef.current) return;
 
         if (radarLayerRef.current) {
           mapInstanceRef.current.removeLayer(radarLayerRef.current);
         }
-        const radarUrl = `https://tilecache.rainviewer.com/v2/radar/${timestamp}/256/{z}/{x}/{y}/2/1_1.png`;
+        const radarUrl = `${radarData.host}${radarData.path}/256/{z}/{x}/{y}/2/1_1.png`;
         const radarLayer = L.tileLayer(radarUrl, {
           opacity: 0.6,
           maxZoom: 15,
@@ -100,7 +105,7 @@ export default function PrecipitationMap({ lat, lon }) {
         radarLayer.addTo(mapInstanceRef.current);
         radarLayerRef.current = radarLayer;
 
-        const date = new Date(timestamp * 1000);
+        const date = new Date(radarData.time * 1000);
         setRadarUpdatedAt(
           date.toLocaleTimeString(undefined, {
             hour: "numeric",
