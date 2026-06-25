@@ -69,6 +69,7 @@ export default function PrecipitationMap({ lat, lon }) {
         const radarLayer = L.tileLayer(radarUrl, {
           opacity: 0.6,
           maxZoom: 15,
+          maxNativeZoom: 6,
         });
         radarLayer.addTo(map);
         radarLayerRef.current = radarLayer;
@@ -101,6 +102,7 @@ export default function PrecipitationMap({ lat, lon }) {
         const radarLayer = L.tileLayer(radarUrl, {
           opacity: 0.6,
           maxZoom: 15,
+          maxNativeZoom: 6,
         });
         radarLayer.addTo(mapInstanceRef.current);
         radarLayerRef.current = radarLayer;
