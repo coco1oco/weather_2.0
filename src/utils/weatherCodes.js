@@ -38,10 +38,10 @@ const codeDescriptions = {
  * Returns a prose description for a WMO weather code.
  * Optionally appends the daily high temperature.
  */
-export function describeWeather(code, highTemp = null) {
+export function describeWeather(code, highTemp = null, unit = "C") {
   const base = codeDescriptions[code] || "Conditions unclear";
   if (highTemp !== null && highTemp !== undefined) {
-    return `${base}. High of ${Math.round(highTemp)}°.`;
+    return `${base}. High of ${formatTemp(highTemp, unit)}°.`;
   }
   return `${base}.`;
 }
@@ -62,4 +62,13 @@ export function shortDescription(code) {
   if (code >= 85 && code <= 86) return "Snow showers";
   if (code >= 95) return "Thunderstorms";
   return "Mixed";
+}
+
+/**
+ * Converts Celsius to Fahrenheit if unit is F, and rounds it.
+ */
+export function formatTemp(valueC, unit) {
+  if (valueC === null || valueC === undefined) return "—";
+  const temp = unit === "F" ? valueC * (9 / 5) + 32 : valueC;
+  return Math.round(temp);
 }

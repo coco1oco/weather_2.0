@@ -43,6 +43,18 @@ export default function App() {
     setTheme(prev => prev === "light" ? "dark" : "light");
   };
 
+  const [unit, setUnit] = useState(() => {
+    return localStorage.getItem("weather-unit") || "C";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("weather-unit", unit);
+  }, [unit]);
+
+  const toggleUnit = () => {
+    setUnit(prev => prev === "C" ? "F" : "C");
+  };
+
   const {
     loading,
     city,
@@ -102,6 +114,8 @@ export default function App() {
           <Temperature
             value={current ? current.temperature : null}
             loading={loading}
+            unit={unit}
+            onToggleUnit={toggleUnit}
           />
 
           {/* Prose condition */}
@@ -109,6 +123,7 @@ export default function App() {
             <ConditionProse
               weatherCode={current.weatherCode}
               highTemp={forecast ? forecast.todayHigh : null}
+              unit={unit}
             />
           )}
 
@@ -151,7 +166,7 @@ export default function App() {
           {forecast && (
             <>
               <h2 className="forecast-heading">Five-Day Forecast</h2>
-              <ForecastTable forecast={forecast} />
+              <ForecastTable forecast={forecast} unit={unit} />
             </>
           )}
 

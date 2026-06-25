@@ -1,6 +1,6 @@
-import { shortDescription } from "../utils/weatherCodes";
+import { shortDescription, formatTemp } from "../utils/weatherCodes";
 
-export default function ForecastTable({ forecast }) {
+export default function ForecastTable({ forecast, unit }) {
   if (!forecast || !forecast.dates) return null;
 
   const formatDay = (dateStr) => {
@@ -17,8 +17,8 @@ export default function ForecastTable({ forecast }) {
             {shortDescription(forecast.weatherCodes[i])}
           </span>
           <span className="forecast-table__temps">
-            {Math.round(forecast.maxTemps[i])}° /{" "}
-            {Math.round(forecast.minTemps[i])}°
+            {formatTemp(forecast.maxTemps[i], unit)}° /{" "}
+            {formatTemp(forecast.minTemps[i], unit)}°
           </span>
         </div>
       ))}
