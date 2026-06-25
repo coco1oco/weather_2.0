@@ -264,6 +264,54 @@ body {
 }
 
 /* -------------------------------------------------- */
+/* Saved Cities                                       */
+/* -------------------------------------------------- */
+
+.saved-cities {
+  margin-top: 48px;
+}
+
+.saved-cities__heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.saved-cities__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saved-cities__button {
+  background: none;
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.saved-cities__button:hover {
+  color: var(--text-primary);
+}
+
+.saved-cities__region {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+/* -------------------------------------------------- */
 /* Search Input                                       */
 /* -------------------------------------------------- */
 
