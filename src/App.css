@@ -1,0 +1,376 @@
+/*
+ * Editorial Weather — Design System
+ *
+ * A broadsheet almanac crossed with a pocket guide.
+ * Georgia serif throughout. Hairline rules. No cards, no shadows,
+ * no rounded corners, no gradients, no icons.
+ */
+
+/* -------------------------------------------------- */
+/* Reset & Base                                       */
+/* -------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background-color: #f7f4ef;
+  color: #2c2c2a;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------- */
+/* Page Layout                                        */
+/* -------------------------------------------------- */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 80px 24px 60px;
+}
+
+.almanac {
+  max-width: 600px;
+  width: 100%;
+}
+
+.almanac__search {
+  margin-bottom: 48px;
+}
+
+.almanac__error {
+  font-size: 0.85rem;
+  color: #a04040;
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* -------------------------------------------------- */
+/* City Header                                        */
+/* -------------------------------------------------- */
+
+.city-header {
+  margin-bottom: 8px;
+}
+
+.city-name {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.2em;
+  color: #2c2c2a;
+  line-height: 1.3;
+}
+
+.city-region {
+  font-size: 0.85rem;
+  color: #888;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+/* -------------------------------------------------- */
+/* Temperature                                        */
+/* -------------------------------------------------- */
+
+.temperature {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #2c2c2a;
+  margin: 4px 0 16px;
+  transition: opacity 0.3s ease;
+}
+
+.temperature--loading {
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* -------------------------------------------------- */
+/* Condition Prose                                    */
+/* -------------------------------------------------- */
+
+.condition-prose {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.15rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  max-width: 480px;
+}
+
+/* -------------------------------------------------- */
+/* Hairline Rules                                     */
+/* -------------------------------------------------- */
+
+.rule {
+  border: none;
+  border-top: 0.5px solid #ccc;
+  margin: 28px 0;
+}
+
+/* -------------------------------------------------- */
+/* Data Row                                           */
+/* -------------------------------------------------- */
+
+.data-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.data-row__item {
+  white-space: nowrap;
+}
+
+.data-row__value {
+  color: #555;
+  font-weight: 400;
+}
+
+.data-row__label {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85em;
+}
+
+.data-row__dot {
+  color: #ccc;
+  padding: 0 2px;
+}
+
+/* -------------------------------------------------- */
+/* Forecast                                           */
+/* -------------------------------------------------- */
+
+.forecast-heading {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.15em;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.forecast-table {
+  width: 100%;
+}
+
+.forecast-table__row {
+  display: flex;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #ccc;
+}
+
+.forecast-table__row:first-child {
+  border-top: 0.5px solid #ccc;
+}
+
+.forecast-table__day {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #2c2c2a;
+  text-align: left;
+}
+
+.forecast-table__condition {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  font-style: italic;
+}
+
+.forecast-table__temps {
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  color: #555;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+/* -------------------------------------------------- */
+/* Search Input                                       */
+/* -------------------------------------------------- */
+
+.search-form {
+  display: block;
+}
+
+.search-input {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  color: #2c2c2a;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+  width: 100%;
+  max-width: 280px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.search-input:focus {
+  border-bottom-color: #2c2c2a;
+}
+
+/* -------------------------------------------------- */
+/* Footer                                             */
+/* -------------------------------------------------- */
+
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.04em;
+}
+
+/* -------------------------------------------------- */
+/* Responsive                                         */
+/* -------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 40px 20px 40px;
+  }
+
+  .temperature {
+    margin: 0 0 12px;
+  }
+
+  .rule {
+    margin: 20px 0;
+  }
+
+  .city-header {
+    margin-bottom: 4px;
+  }
+
+  .condition-prose {
+    font-size: 1.05rem;
+  }
+
+  .forecast-table__condition {
+    display: none;
+  }
+
+  .footer {
+    margin-top: 32px;
+  }
+
+  .almanac__search {
+    margin-bottom: 32px;
+  }
+
+  .precip-legend-row {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+}
+
+/* -------------------------------------------------- */
+/* Precipitation Map                                  */
+/* -------------------------------------------------- */
+
+.precip-section {
+  width: 100%;
+}
+
+/* Map container — full width, fixed height, square corners, no chrome */
+.precip-map-container {
+  width: 100%;
+  height: 320px;
+  border-radius: 0;
+  /* Strip any Leaflet default outlines */
+  outline: none;
+}
+
+/* Hide ALL default Leaflet UI chrome */
+.precip-map-container .leaflet-control-container,
+.precip-map-container .leaflet-top,
+.precip-map-container .leaflet-bottom,
+.precip-map-container .leaflet-control-zoom,
+.precip-map-container .leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Legend row */
+.precip-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  gap: 16px;
+}
+
+/* Color ramp legend */
+.precip-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  color: #888;
+}
+
+.precip-legend__label {
+  white-space: nowrap;
+}
+
+.precip-legend__ramp {
+  display: inline-block;
+  width: 80px;
+  height: 6px;
+  background: linear-gradient(to right, #a8d8f0, #1a4a8a);
+  flex-shrink: 0;
+}
+
+/* Radar timestamp */
+.precip-meta {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.precip-meta--error {
+  font-style: italic;
+  margin-top: 8px;
+}
+

@@ -1,13 +1,16 @@
-## Hello, my name is Kurt and currently I am a Sophomore student.
+# React + Vite
 
-This is my first ever Git project.
-I am making a weather app that is utilizing an openweather api.
-As of August 12, 2025 this is a starting project and I am learning as I go.
-There is still so many things that I don't know about programming and creating something but I hope it will be fun.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-Right now, I am learning how to use Git and APIs, hence the reason why i'm trying to create this weather app.
-As I think it uses the things I need to learn.
+Currently, two official plugins are available:
 
-This program is created using basic HTML, CSS, and Javascript
-This utilizes openweathermap api which is used to deliver temperature, humidity, and wind speed.
-There Dynamic parts of this project that is achieve through Javascript.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
