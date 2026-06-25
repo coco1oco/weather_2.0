@@ -148,5 +148,5 @@ export function useWeather() {
     );
   }, [fetchWeather]);
 
-  return { ...state, searchCity };
+  return { ...state, searchCity, fetchWeather };
 }
