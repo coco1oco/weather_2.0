@@ -17,10 +17,11 @@ async function fetchRainViewerData() {
   };
 }
 
-export default function PrecipitationMap({ lat, lon }) {
+export default function PrecipitationMap({ lat, lon, theme }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const radarLayerRef = useRef(null);
+  const baseLayerRef = useRef(null);
   const [radarUpdatedAt, setRadarUpdatedAt] = useState(null);
   const [mapError, setMapError] = useState(null);
 
@@ -54,11 +55,14 @@ export default function PrecipitationMap({ lat, lon }) {
 
       mapInstanceRef.current = map;
 
-      // CartoDB Positron base tiles — clean, near-white
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      // CartoDB Positron base tiles — switch based on theme
+      const baseMapStyle = theme === 'dark' ? 'dark_all' : 'light_all';
+      const baseLayer = L.tileLayer(
+        `https://{s}.basemaps.cartocdn.com/${baseMapStyle}/{z}/{x}/{y}{r}.png`,
         { subdomains: "abcd", maxZoom: 19 }
-      ).addTo(map);
+      );
+      baseLayer.addTo(map);
+      baseLayerRef.current = baseLayer;
 
       // Load RainViewer radar
       try {
@@ -141,7 +145,7 @@ export default function PrecipitationMap({ lat, lon }) {
         mapInstanceRef.current = null;
       }
     };
-  }, [lat, lon]);
+  }, [lat, lon, theme]);
 
   if (!lat || !lon) return null;
 

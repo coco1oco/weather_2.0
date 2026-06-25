@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useWeather } from "./hooks/useWeather";
 import CityHeader from "./components/CityHeader";
 import Temperature from "./components/Temperature";
@@ -10,6 +11,20 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 export default function App() {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === "light" ? "dark" : "light");
+  };
+
   const {
     loading,
     city,
@@ -27,73 +42,82 @@ export default function App() {
   return (
     <div className="page">
       <article className="almanac">
-        {/* Search: shown when geolocation denied and no city yet */}
-        {needsSearch && !city && (
-          <div className="almanac__search">
-            <SearchInput onSearch={searchCity} />
-            {error && <p className="almanac__error">{error}</p>}
-          </div>
-        )}
+        <div className="almanac__left">
+          {/* Search: shown when geolocation denied and no city yet */}
+          {needsSearch && !city && (
+            <div className="almanac__search">
+              <SearchInput onSearch={searchCity} />
+              {error && <p className="almanac__error">{error}</p>}
+            </div>
+          )}
 
-        {/* City header */}
-        <CityHeader city={city} region={region} />
+          {/* City header */}
+          <CityHeader city={city} region={region} />
 
-        {/* Temperature headline */}
-        <Temperature
-          value={current ? current.temperature : null}
-          loading={loading}
-        />
-
-        {/* Prose condition */}
-        {current && (
-          <ConditionProse
-            weatherCode={current.weatherCode}
-            highTemp={forecast ? forecast.todayHigh : null}
+          {/* Temperature headline */}
+          <Temperature
+            value={current ? current.temperature : null}
+            loading={loading}
           />
-        )}
 
-        {/* Hairline rule */}
-        {current && <hr className="rule" />}
+          {/* Prose condition */}
+          {current && (
+            <ConditionProse
+              weatherCode={current.weatherCode}
+              highTemp={forecast ? forecast.todayHigh : null}
+            />
+          )}
 
-        {/* Data row */}
-        {current && (
-          <DataRow
-            humidity={current.humidity}
-            windSpeed={current.windSpeed}
-            uvIndex={current.uvIndex}
+          {/* Hairline rule */}
+          {current && <hr className="rule" />}
+
+          {/* Data row */}
+          {current && (
+            <DataRow
+              humidity={current.humidity}
+              windSpeed={current.windSpeed}
+              uvIndex={current.uvIndex}
+            />
+          )}
+
+          {/* Search input when data is already showing */}
+          {city && (
+            <>
+              <hr className="rule" />
+              <SearchInput onSearch={searchCity} />
+            </>
+          )}
+
+          {/* Error when data is showing */}
+          {city && error && <p className="almanac__error">{error}</p>}
+
+          {/* Footer */}
+          <Footer 
+            lastUpdated={lastUpdated} 
+            lat={lat} 
+            lon={lon} 
+            theme={theme}
+            onToggleTheme={toggleTheme}
           />
-        )}
+        </div>
 
-        {/* Forecast */}
-        {forecast && (
-          <>
-            <hr className="rule" />
-            <h2 className="forecast-heading">Five-Day Forecast</h2>
-            <ForecastTable forecast={forecast} />
-          </>
-        )}
+        <div className="almanac__right">
+          {/* Forecast */}
+          {forecast && (
+            <>
+              <h2 className="forecast-heading">Five-Day Forecast</h2>
+              <ForecastTable forecast={forecast} />
+            </>
+          )}
 
-        {/* Precipitation map */}
-        {lat && lon && (
-          <>
-            <hr className="rule" />
-            <PrecipitationMap lat={lat} lon={lon} />
-          </>
-        )}
-
-        {/* Search input when data is already showing */}
-        {city && (
-          <>
-            <hr className="rule" />
-            <SearchInput onSearch={searchCity} />
-          </>
-        )}
-
-        {/* Error when data is showing */}
-        {city && error && <p className="almanac__error">{error}</p>}
-
-        {/* Footer */}
-        <Footer lastUpdated={lastUpdated} lat={lat} lon={lon} />
+          {/* Precipitation map */}
+          {lat && lon && (
+            <>
+              <hr className="rule" />
+              <PrecipitationMap lat={lat} lon={lon} theme={theme} />
+            </>
+          )}
+        </div>
       </article>
     </div>
   );

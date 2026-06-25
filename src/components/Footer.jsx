@@ -1,4 +1,4 @@
-export default function Footer({ lastUpdated, lat, lon }) {
+export default function Footer({ lastUpdated, lat, lon, theme, onToggleTheme }) {
   if (!lastUpdated) return null;
 
   const time = lastUpdated.toLocaleTimeString(undefined, {
@@ -13,7 +13,12 @@ export default function Footer({ lastUpdated, lat, lon }) {
 
   return (
     <footer className="footer">
-      Updated {time}{coords && ` · ${coords}`}
+      <div>
+        Updated {time}{coords && ` · ${coords}`}
+      </div>
+      <button className="theme-toggle" onClick={onToggleTheme}>
+        [ {theme === 'light' ? 'Dark Mode' : 'Light Mode'} ]
+      </button>
     </footer>
   );
 }

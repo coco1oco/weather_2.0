@@ -7,6 +7,28 @@
  */
 
 /* -------------------------------------------------- */
+/* Design Tokens                                      */
+/* -------------------------------------------------- */
+
+:root {
+  --bg-color: #f7f4ef;
+  --text-primary: #2c2c2a;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --rule-color: #cccccc;
+  --error-color: #a04040;
+}
+
+body.dark {
+  --bg-color: #1c1b1a;
+  --text-primary: #e6e2da;
+  --text-secondary: #a6a39c;
+  --text-muted: #777570;
+  --rule-color: #3c3a37;
+  --error-color: #cf6679;
+}
+
+/* -------------------------------------------------- */
 /* Reset & Base                                       */
 /* -------------------------------------------------- */
 
@@ -26,9 +48,10 @@ html {
 
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
-  background-color: #f7f4ef;
-  color: #2c2c2a;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* -------------------------------------------------- */
@@ -36,15 +59,38 @@ body {
 /* -------------------------------------------------- */
 
 .page {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 80px 24px 60px;
+  padding: 40px 24px;
+  overflow: hidden;
 }
 
 .almanac {
-  max-width: 600px;
+  max-width: 1000px;
   width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.almanac__left {
+  border-right: 0.5px solid var(--rule-color);
+  padding-right: 60px;
+  overflow-y: auto;
+  /* Hide scrollbar for a cleaner look if it slightly overflows */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.almanac__left::-webkit-scrollbar {
+  display: none;
+}
+
+.almanac__right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .almanac__search {
@@ -53,7 +99,7 @@ body {
 
 .almanac__error {
   font-size: 0.85rem;
-  color: #a04040;
+  color: var(--error-color);
   margin-top: 12px;
   font-style: italic;
 }
@@ -73,13 +119,13 @@ body {
   font-variant: small-caps;
   text-transform: lowercase;
   letter-spacing: 0.2em;
-  color: #2c2c2a;
+  color: var(--text-primary);
   line-height: 1.3;
 }
 
 .city-region {
   font-size: 0.85rem;
-  color: #888;
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   margin-top: 2px;
 }
@@ -94,7 +140,7 @@ body {
   font-weight: 300;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: #2c2c2a;
+  color: var(--text-primary);
   margin: 4px 0 16px;
   transition: opacity 0.3s ease;
 }
@@ -115,7 +161,7 @@ body {
 .condition-prose {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.15rem;
-  color: #555;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 8px;
   max-width: 480px;
@@ -127,7 +173,7 @@ body {
 
 .rule {
   border: none;
-  border-top: 0.5px solid #ccc;
+  border-top: 0.5px solid var(--rule-color);
   margin: 28px 0;
 }
 
@@ -140,7 +186,7 @@ body {
   flex-wrap: wrap;
   gap: 0;
   font-size: 0.9rem;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .data-row__item {
@@ -148,7 +194,7 @@ body {
 }
 
 .data-row__value {
-  color: #555;
+  color: var(--text-secondary);
   font-weight: 400;
 }
 
@@ -160,7 +206,7 @@ body {
 }
 
 .data-row__dot {
-  color: #ccc;
+  color: var(--rule-color);
   padding: 0 2px;
 }
 
@@ -175,7 +221,7 @@ body {
   font-variant: small-caps;
   text-transform: lowercase;
   letter-spacing: 0.15em;
-  color: #888;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -187,24 +233,24 @@ body {
   display: flex;
   align-items: baseline;
   padding: 10px 0;
-  border-bottom: 0.5px solid #ccc;
+  border-bottom: 0.5px solid var(--rule-color);
 }
 
 .forecast-table__row:first-child {
-  border-top: 0.5px solid #ccc;
+  border-top: 0.5px solid var(--rule-color);
 }
 
 .forecast-table__day {
   flex: 1;
   font-size: 0.95rem;
-  color: #2c2c2a;
+  color: var(--text-primary);
   text-align: left;
 }
 
 .forecast-table__condition {
   flex: 1;
   font-size: 0.85rem;
-  color: #888;
+  color: var(--text-muted);
   text-align: center;
   font-style: italic;
 }
@@ -212,7 +258,7 @@ body {
 .forecast-table__temps {
   flex: 0 0 auto;
   font-size: 0.95rem;
-  color: #555;
+  color: var(--text-secondary);
   text-align: right;
   letter-spacing: 0.02em;
 }
@@ -228,10 +274,10 @@ body {
 .search-input {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1rem;
-  color: #2c2c2a;
+  color: var(--text-primary);
   background: transparent;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--rule-color);
   padding: 8px 0;
   width: 100%;
   max-width: 280px;
@@ -240,12 +286,12 @@ body {
 }
 
 .search-input::placeholder {
-  color: #aaa;
+  color: var(--text-muted);
   font-style: italic;
 }
 
 .search-input:focus {
-  border-bottom-color: #2c2c2a;
+  border-bottom-color: var(--text-primary);
 }
 
 /* -------------------------------------------------- */
@@ -256,13 +302,61 @@ body {
   margin-top: 48px;
   padding-top: 24px;
   font-size: 0.75rem;
-  color: #888;
+  color: var(--text-muted);
   letter-spacing: 0.04em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
 }
 
 /* -------------------------------------------------- */
 /* Responsive                                         */
 /* -------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .page {
+    height: auto;
+    overflow: auto;
+  }
+  
+  .almanac {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    height: auto;
+    gap: 0;
+  }
+  
+  .almanac__left {
+    border-right: none;
+    padding-right: 0;
+    overflow-y: visible;
+  }
+  
+  .almanac__right {
+    overflow: visible;
+  }
+  
+  .precip-map-container {
+    min-height: 320px;
+  }
+}
 
 @media (max-width: 640px) {
   .page {
@@ -310,12 +404,16 @@ body {
 
 .precip-section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
 }
 
-/* Map container — full width, fixed height, square corners, no chrome */
+/* Map container — full width, flex grow, square corners, no chrome */
 .precip-map-container {
   width: 100%;
-  height: 320px;
+  flex-grow: 1;
   border-radius: 0;
   /* Strip any Leaflet default outlines */
   outline: none;
@@ -346,7 +444,7 @@ body {
   gap: 8px;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .precip-legend__label {
@@ -365,7 +463,7 @@ body {
 .precip-meta {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
