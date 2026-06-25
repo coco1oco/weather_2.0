@@ -11,9 +11,17 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 export default function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("weather-theme");
+    if (saved) return saved;
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  });
 
   useEffect(() => {
+    localStorage.setItem("weather-theme", theme);
     if (theme === "dark") {
       document.body.classList.add("dark");
     } else {
