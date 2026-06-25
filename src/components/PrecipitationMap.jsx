@@ -126,15 +126,15 @@ export default function PrecipitationMap({ lat, lon }) {
       }
     });
     
-    if (container) {
-      resizeObserver.observe(container);
+    if (mapRef.current) {
+      resizeObserver.observe(mapRef.current);
     }
 
     return () => {
       mounted = false;
       clearInterval(interval);
-      if (container) {
-        resizeObserver.unobserve(container);
+      if (mapRef.current) {
+        resizeObserver.unobserve(mapRef.current);
       }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
