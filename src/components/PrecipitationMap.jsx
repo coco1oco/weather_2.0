@@ -42,17 +42,21 @@ export default function PrecipitationMap({ lat, lon }) {
 
     async function init() {
       const Leaflet = await getLeaflet();
+      if (!mounted || !mapRef.current) return;
 
-      // If already initialized, just move the view
+      // Clean up previous instance if it exists (for StrictMode)
       if (mapInstanceRef.current) {
-        mapInstanceRef.current.setView([lat, lon], 7);
-        return;
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
       }
-
-      if (!mapRef.current) return;
+      
+      // Ensure the container is empty and has no leaflet IDs
+      const container = mapRef.current;
+      container._leaflet_id = null;
+      container.innerHTML = "";
 
       // Create map, strip all controls
-      const map = Leaflet.map(mapRef.current, {
+      const map = Leaflet.map(container, {
         center: [lat, lon],
         zoom: 7,
         zoomControl: false,
@@ -70,7 +74,7 @@ export default function PrecipitationMap({ lat, lon }) {
       // Load RainViewer radar
       try {
         const timestamp = await fetchRainViewerTimestamp();
-        if (!mounted) return;
+        if (!mounted || !mapInstanceRef.current) return;
 
         const radarUrl = `https://tilecache.rainviewer.com/v2/radar/${timestamp}/256/{z}/{x}/{y}/2/1_1.png`;
         const radarLayer = Leaflet.tileLayer(radarUrl, {
@@ -100,7 +104,7 @@ export default function PrecipitationMap({ lat, lon }) {
       const Leaflet = await getLeaflet();
       try {
         const timestamp = await fetchRainViewerTimestamp();
-        if (!mounted) return;
+        if (!mounted || !mapInstanceRef.current) return;
 
         if (radarLayerRef.current) {
           mapInstanceRef.current.removeLayer(radarLayerRef.current);
@@ -128,18 +132,12 @@ export default function PrecipitationMap({ lat, lon }) {
     return () => {
       mounted = false;
       clearInterval(interval);
-    };
-  }, [lat, lon]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [lat, lon]);
 
   if (!lat || !lon) return null;
 

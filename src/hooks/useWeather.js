@@ -42,16 +42,12 @@ export function useWeather() {
       if (!resolvedCity) {
         try {
           const geoResp = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&count=1`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
           );
           if (geoResp.ok) {
             const geoData = await geoResp.json();
-            if (geoData.results && geoData.results.length > 0) {
-              resolvedCity = geoData.results[0].name;
-              resolvedRegion =
-                geoData.results[0].admin1 ||
-                geoData.results[0].country;
-            }
+            resolvedCity = geoData.city || geoData.locality || geoData.principalSubdivision;
+            resolvedRegion = geoData.principalSubdivision || geoData.countryName;
           }
         } catch {
           // Fallback: use coordinates as name
