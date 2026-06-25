@@ -119,9 +119,23 @@ export default function PrecipitationMap({ lat, lon }) {
       }
     }, 10 * 60 * 1000);
 
+    // Make map responsive to container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    });
+    
+    if (container) {
+      resizeObserver.observe(container);
+    }
+
     return () => {
       mounted = false;
       clearInterval(interval);
+      if (container) {
+        resizeObserver.unobserve(container);
+      }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
